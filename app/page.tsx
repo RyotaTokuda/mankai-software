@@ -5,10 +5,10 @@ const SERVICES = [
     emoji: "🅿️",
     name: "駐車料金リーダー",
     description: "駐車場の料金看板を撮影するだけで料金ルールを自動解析。今から何時間停めたらいくらかを即座に確認できます。",
-    status: "released" as const,
-    statusLabel: "公開中",
-    cardClass: "bg-blue-50 border-blue-100",
-    badgeClass: "bg-blue-600 text-white",
+    status: "wip" as const,
+    statusLabel: "鋭意開発中",
+    cardClass: "bg-orange-50 border-orange-100",
+    badgeClass: "bg-orange-500 text-white",
   },
   {
     emoji: "🔄",
@@ -25,7 +25,7 @@ const SERVICES = [
     name: "副業申請の下準備アプリ",
     description: "副業・兼業を始める際の申請書類の準備をサポート。必要な情報を整理してスムーズに申請できるようにします。",
     status: "soon" as const,
-    statusLabel: "Coming Soon",
+    statusLabel: "開発計画中",
     cardClass: "bg-gray-50 border-gray-100",
     badgeClass: "bg-gray-300 text-gray-600",
   },
@@ -34,7 +34,7 @@ const SERVICES = [
     name: "街の危険箇所・通行しづらい場所投稿アプリ",
     description: "道路の段差・狭い歩道・危険な交差点など、街で見つけた困りごとをみんなで共有して安全な街づくりに貢献します。",
     status: "soon" as const,
-    statusLabel: "Coming Soon",
+    statusLabel: "開発計画中",
     cardClass: "bg-gray-50 border-gray-100",
     badgeClass: "bg-gray-300 text-gray-600",
   },
@@ -43,7 +43,7 @@ const SERVICES = [
     name: "証憑ボックスアプリ",
     description: "領収書・レシート・請求書をスマホで撮影して管理。確定申告や経費精算の時期に慌てないための整理ツールです。",
     status: "soon" as const,
-    statusLabel: "Coming Soon",
+    statusLabel: "開発計画中",
     cardClass: "bg-gray-50 border-gray-100",
     badgeClass: "bg-gray-300 text-gray-600",
   },
@@ -52,7 +52,7 @@ const SERVICES = [
     name: "愛車台帳",
     description: "整備記録・給油・維持費をまとめて管理。オイル交換や車検の通知から、売却時に使える整備履歴PDFの出力まで、愛車ライフを一冊に。",
     status: "soon" as const,
-    statusLabel: "Coming Soon",
+    statusLabel: "開発計画中",
     cardClass: "bg-gray-50 border-gray-100",
     badgeClass: "bg-gray-300 text-gray-600",
   },
@@ -61,7 +61,7 @@ const SERVICES = [
     name: "Sorosoro",
     description: "日用品・車・ガジェットの消耗品をまとめて管理。「そろそろ買い時」を通知してくれる、買い忘れ・交換忘れ防止アプリ。",
     status: "soon" as const,
-    statusLabel: "Coming Soon",
+    statusLabel: "開発計画中",
     cardClass: "bg-gray-50 border-gray-100",
     badgeClass: "bg-gray-300 text-gray-600",
   },
@@ -70,7 +70,7 @@ const SERVICES = [
     name: "車の維持費シミュレーター",
     description: "購入前に総額を試算。ローン・保険・駐車場・燃料・車検などをまとめて入力して、月額・年額・5年総額を即座に比較。複数車種を並べて検討できます。",
     status: "soon" as const,
-    statusLabel: "Coming Soon",
+    statusLabel: "開発計画中",
     cardClass: "bg-gray-50 border-gray-100",
     badgeClass: "bg-gray-300 text-gray-600",
   },
@@ -130,7 +130,7 @@ export default function Home() {
                     <p className="text-sm text-gray-500 leading-relaxed">{s.description}</p>
                   </>
                 );
-                const baseClass = `rounded-2xl border p-6 ${s.cardClass} ${s.status === "soon" ? "opacity-60" : ""}`;
+                const baseClass = `rounded-2xl border p-6 ${s.cardClass} ${s.status === "soon" ? "opacity-50" : ""}`;
                 return "href" in s ? (
                   <a
                     key={s.name}
