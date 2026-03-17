@@ -101,13 +101,13 @@ export default function Home() {
         {/* ヒーロー */}
         <section className="px-6 py-20 text-center bg-gradient-to-b from-pink-50 to-white">
           <div className="max-w-xl mx-auto">
-            <p className="text-xs font-semibold uppercase tracking-widest text-pink-400 mb-4">
-              個人開発アプリ
+            <p className="text-sm font-semibold uppercase tracking-widest text-pink-400 mb-4">
+              個人開発サービス
             </p>
             <h1 className="text-3xl font-bold leading-tight mb-4">
               毎日を、<span className="text-pink-400">満開に。</span>
             </h1>
-            <p className="text-sm text-gray-500 leading-relaxed">
+            <p className="text-base text-gray-500 leading-relaxed">
               ちょっとした不便を解消する、シンプルで使いやすいアプリを作っています。
             </p>
           </div>
@@ -128,7 +128,7 @@ export default function Home() {
                       </span>
                     </div>
                     <h3 className="font-bold text-gray-900 mb-1.5 leading-snug text-sm">{s.name}</h3>
-                    <p className="text-xs text-gray-500 leading-relaxed">{s.description}</p>
+                    <p className="text-sm text-gray-500 leading-relaxed">{s.description}</p>
                   </>
                 );
                 const baseClass = `rounded-2xl border p-6 ${s.cardClass} ${s.status === "soon" ? "opacity-50" : ""}`;
