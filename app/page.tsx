@@ -97,37 +97,36 @@ export default function Home() {
 
       <main className="flex-1">
         {/* ヒーロー */}
-        <section className="px-6 py-20 text-center bg-gradient-to-b from-emerald-50 to-white">
+        <section className="px-6 py-20 text-center bg-gradient-to-b from-pink-50 to-white">
           <div className="max-w-xl mx-auto">
-            <p className="text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-4">
+            <p className="text-xs font-semibold uppercase tracking-widest text-pink-400 mb-4">
               個人開発アプリ
             </p>
-            <h1 className="text-4xl font-bold leading-tight mb-4">
-              毎日を、<br />
-              <span className="text-emerald-600">満開に。</span>
+            <h1 className="text-3xl font-bold leading-tight mb-4">
+              毎日を、<span className="text-pink-400">満開に。</span>
             </h1>
-            <p className="text-gray-500 leading-relaxed">
+            <p className="text-sm text-gray-500 leading-relaxed">
               ちょっとした不便を解消する、シンプルで使いやすいアプリを作っています。
             </p>
           </div>
         </section>
 
         {/* サービス一覧 */}
-        <section className="px-6 py-16">
+        <section className="px-6 py-14">
           <div className="max-w-4xl mx-auto">
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-8">Apps</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-6">Apps</p>
             <div className="grid gap-4 sm:grid-cols-2">
               {SERVICES.map((s) => {
                 const inner = (
                   <>
                     <div className="flex items-start justify-between mb-3">
-                      <span className="text-3xl">{s.emoji}</span>
+                      <span className="text-2xl">{s.emoji}</span>
                       <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${s.badgeClass}`}>
                         {s.statusLabel}
                       </span>
                     </div>
-                    <h3 className="font-bold text-gray-900 mb-2 leading-snug text-sm">{s.name}</h3>
-                    <p className="text-sm text-gray-500 leading-relaxed">{s.description}</p>
+                    <h3 className="font-bold text-gray-900 mb-1.5 leading-snug text-sm">{s.name}</h3>
+                    <p className="text-xs text-gray-500 leading-relaxed">{s.description}</p>
                   </>
                 );
                 const baseClass = `rounded-2xl border p-6 ${s.cardClass} ${s.status === "soon" ? "opacity-50" : ""}`;
