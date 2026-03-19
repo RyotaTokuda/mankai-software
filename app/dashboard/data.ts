@@ -16,7 +16,53 @@ export interface TodoItem {
   owner: "auto" | "manual";
   priority: "critical" | "high" | "medium" | "low";
   blocked?: string;
+  detail?: string;        // 詳細な手順（クリックで展開）
+  estimatedMinutes?: number;
+  impact?: string;        // やるとどうなるか
 }
+
+// 年間売上予測（全プロジェクト合算）
+export interface AnnualForecast {
+  month: string;       // "2026-04" etc
+  baseline: number;    // ベースライン予測（普通シナリオ）
+  upside: number;      // 上振れ予測（施策がハマった場合）
+  actual: number;      // 実績
+  catalyst?: string;   // その月の上振れ要因
+}
+
+export const ANNUAL_FORECAST: AnnualForecast[] = [
+  { month: "2026-04", baseline: 0, upside: 0, actual: 0, catalyst: "基盤構築期。SEOインデックス待ち。記事25本目標" },
+  { month: "2026-05", baseline: 8000, upside: 18000, actual: 0, catalyst: "X運用→初期トラフィック。NOTE有料記事初売上。くらべるラボ初成果" },
+  { month: "2026-06", baseline: 20000, upside: 40000, actual: 0, catalyst: "SEO効果が出始める。NOTE月¥5,000+くらべるラボ月¥8,000+他" },
+  { month: "2026-07", baseline: 35000, upside: 65000, actual: 0, catalyst: "特別単価交渉。NOTEマガジン開始。記事改善サイクル本格化" },
+  { month: "2026-08", baseline: 55000, upside: 95000, actual: 0, catalyst: "NOTE月¥20,000+くらべるラボ月¥25,000+駐車場アプリ月¥8,000" },
+  { month: "2026-09", baseline: 75000, upside: 130000, actual: 0, catalyst: "会計ソフト記事が上位表示。NOTE月¥30,000。アプリ収益安定" },
+  { month: "2026-10", baseline: 90000, upside: 160000, actual: 0, catalyst: "SNSフォロワー1000人。確定申告シーズン準備記事投入" },
+  { month: "2026-11", baseline: 100000, upside: 180000, actual: 0, catalyst: "全プロジェクト合算で月10万達成。年末保険見直し需要" },
+  { month: "2026-12", baseline: 110000, upside: 200000, actual: 0, catalyst: "年末商戦。ふるさと納税関連記事。NOTE年末まとめ記事" },
+  { month: "2027-01", baseline: 140000, upside: 260000, actual: 0, catalyst: "確定申告シーズン突入。freee月5件×¥12,000=¥60,000" },
+  { month: "2027-02", baseline: 160000, upside: 300000, actual: 0, catalyst: "確定申告ピーク。NOTE+くらべるラボ+アプリの3本柱フル稼働" },
+  { month: "2027-03", baseline: 140000, upside: 250000, actual: 0, catalyst: "確定申告ラストスパート。年間通算で月平均¥80,000以上" },
+];
+
+// 上振れ施策（月ごとに何をすれば上に突き抜けるか）
+export interface GrowthLever {
+  timing: string;
+  lever: string;
+  baselineImpact: string;
+  upsideImpact: string;
+  detail: string;
+}
+
+export const GROWTH_LEVERS: GrowthLever[] = [
+  { timing: "2026年4-5月", lever: "X(Twitter)運用開始", baselineImpact: "+¥0", upsideImpact: "+¥5,000/月", detail: "AIツール情報を毎日発信。フォロワー500人が月5万PV見込み。記事公開直後のSNS拡散がインデックス速度を加速" },
+  { timing: "2026年5-6月", lever: "ASP案件の実績作り→特別単価交渉", baselineImpact: "+¥0", upsideImpact: "+¥15,000/月", detail: "成果3件で担当者に連絡。freee通常¥12,000→特別¥18,000〜¥25,000の実績あり。成果率が同じでも収益1.5〜2倍" },
+  { timing: "2026年6-7月", lever: "計算ツール連携（車の維持費シミュレーター）", baselineImpact: "+¥3,000/月", upsideImpact: "+¥10,000/月", detail: "計算ツール→結果画面で自動車保険見積りに誘導。ツール自体が被リンクを獲得しSEO全体を底上げ" },
+  { timing: "2026年7-8月", lever: "NOTEマガジン+シリーズ化", baselineImpact: "+¥2,000/月", upsideImpact: "+¥8,000/月", detail: "月額980円マガジン。10人で月¥9,800。シリーズ化で継続購読率UP" },
+  { timing: "2026年9-10月", lever: "確定申告シーズン準備記事の先行投入", baselineImpact: "+¥5,000/月", upsideImpact: "+¥30,000/月", detail: "「副業 確定申告 やり方」「freee 使い方」等の記事を先行公開。1-3月に検索が10倍になるため、SEO上位を先に取る" },
+  { timing: "2026年10-11月", lever: "高単価案件の追加（プログラミングスクール等）", baselineImpact: "+¥0", upsideImpact: "+¥15,000/月", detail: "1件¥10,000〜¥30,000。AIエンジニア転職系の記事を追加。月1件でも大きい" },
+  { timing: "2027年1-3月", lever: "確定申告シーズン×全施策フル稼働", baselineImpact: "+¥20,000/月", upsideImpact: "+¥60,000/月", detail: "会計ソフト¥12,000×月5件=¥60,000。これだけで月5万超え。他の収益と合わせて月10万〜20万の射程" },
+];
 
 export interface KPI {
   label: string;
@@ -127,15 +173,15 @@ export const PROJECTS: ProjectData[] = [
       { issue: "X未開設", impact: "SNS流入ゼロ", impactAmount: "SEOだけでは月5万達成が厳しい。競合はSEO+SNSの2本柱", action: "X(Twitter)アカウント作成、AIツール情報発信開始", owner: "manual", estimatedMinutes: 10 },
     ],
     todos: [
-      { task: "Search Console登録 + サイト認証", owner: "manual", priority: "critical" },
-      { task: "Cloudflare Web Analyticsトークン設定", owner: "manual", priority: "critical" },
-      { task: "A8.netでfreee/会計ソフト案件を提携申請", owner: "manual", priority: "critical" },
-      { task: "もしもでAIツール系案件を提携申請", owner: "manual", priority: "critical" },
-      { task: "X(Twitter)アカウント開設・運用開始", owner: "manual", priority: "high" },
-      { task: "記事の自動生成（毎日3本）", owner: "auto", priority: "high" },
-      { task: "daily-audit: 記事監査・改善候補抽出", owner: "auto", priority: "high" },
-      { task: "weekly-report: 週次KPIレポート", owner: "auto", priority: "high" },
-      { task: "monthly-report: 月次分析", owner: "auto", priority: "medium" },
+      { task: "Search Console登録 + サイト認証", owner: "manual", priority: "critical", estimatedMinutes: 5, impact: "検索KPI（表示回数/クリック/CTR）が取れるようになり、改善サイクルが回り始める", detail: "1. https://search.google.com/search-console にアクセス\n2.「プロパティを追加」→「URLプレフィックス」→ https://kuraberu-lab.com\n3.「HTMLタグ」で確認 → content値をコピー\n4. Claude Codeに値を共有 → サイトに埋め込み → デプロイ" },
+      { task: "Cloudflare Web Analyticsトークン設定", owner: "manual", priority: "critical", estimatedMinutes: 3, impact: "ページ別PVが取れ、どの記事が読まれているかわかる", detail: "1. https://dash.cloudflare.com/ → Analytics & logs → Web Analytics\n2.「Add a site」→ kuraberu-lab.com\n3. 表示されるトークンをコピー\n4. Claude Codeに共有 → サイトのPLACEHOLDERを差し替え" },
+      { task: "A8.netでfreee/会計ソフト案件を提携申請", owner: "manual", priority: "critical", estimatedMinutes: 15, impact: "会計ソフト案件は1件¥12,000。月1件でもAIツール5件分の収益", detail: "1. A8.net にログイン（ID: kuraberulab777）\n2. プログラム検索で「freee」「マネーフォワード」「弥生」を検索\n3. 各案件の「提携申請する」をクリック\n4. 審査待ち（即時〜数日）" },
+      { task: "もしもでAIツール系案件を提携申請", owner: "manual", priority: "critical", estimatedMinutes: 15, impact: "もしもはW報酬制度で+12%。同じ案件でもA8より得な場合がある", detail: "1. https://af.moshimo.com/ にログイン\n2.「Notta」「Canva」「DeepL」「AI」等で検索\n3. 各案件の提携申請\n4. Amazon/楽天もここで提携可能" },
+      { task: "X(Twitter)アカウント開設・運用開始", owner: "manual", priority: "high", estimatedMinutes: 10, impact: "SEO+SNSの2本柱で流入を確保。競合はほぼ全社SNS併用", detail: "1. https://x.com でアカウント作成（個人名義推奨）\n2. プロフィール: AIツールを試して比較する人\n3. 初日: 自己紹介+記事リンク3本投稿\n4. 以降: 毎日1-2投稿（記事告知/AIツール速報/Tips）" },
+      { task: "記事の自動生成（毎日3本）", owner: "auto", priority: "high", detail: "GitHub Actions: content-draft（JST 9:15/15:15/20:15）\ndraft→enrich→AIレビュー→publish→コミットの完全自動パイプライン" },
+      { task: "daily-audit: 記事監査・改善候補抽出", owner: "auto", priority: "high", detail: "GitHub Actions: daily-audit（JST 6:00）\n薄い記事/古い記事/孤立記事/案件未設定を自動検出\nreports/audit/latest.md に結果保存" },
+      { task: "weekly-report: 週次KPIレポート", owner: "auto", priority: "high", detail: "GitHub Actions: weekly-report（毎週月曜JST 7:00）\nSearch Console/PV/改善候補を自動集計\nreports/weekly/ に保存" },
+      { task: "monthly-report: 月次分析", owner: "auto", priority: "medium", detail: "GitHub Actions: monthly-report（毎月1日JST 7:00）\nテーマ別パフォーマンス/案件成果率/翌月重点改善対象\nreports/monthly/ に保存" },
     ],
     revenueRoadmap: [
       { month: "2026-04", target: 0, actual: 0, breakdown: [{ source: "基盤構築期", target: 0, actual: 0 }] },
@@ -154,7 +200,7 @@ export const PROJECTS: ProjectData[] = [
       { name: "SHIFT AI TIMES", users: "フォロワー10万", pricing: "コミュニティ販売" },
     ],
     currentMonthly: 0,
-    monthlyTarget: 70500,
+    monthlyTarget: 50000,
     revenue: {
       bad: 2000,
       normal: 25000,
@@ -204,13 +250,13 @@ export const PROJECTS: ProjectData[] = [
       { issue: "X連携停止中", impact: "SNS流入ゼロ", impactAmount: "フォロワー獲得速度が大幅に低下", action: "X API再申請 or 手動ツイート週3回", owner: "manual", estimatedMinutes: 10 },
     ],
     todos: [
-      { task: "明日のGitHub Actions結果を確認", owner: "manual", priority: "critical" },
-      { task: "A8.net/もしもでNOTE Writer向け案件を提携申請", owner: "manual", priority: "high" },
-      { task: "NOTE headless投稿が失敗したらxvfb対応", owner: "auto", priority: "high" },
-      { task: "30記事到達後にNOTEマガジン作成", owner: "manual", priority: "medium" },
-      { task: "X API再申請 or 手動ツイート週3回", owner: "manual", priority: "medium" },
-      { task: "記事の自動投稿（毎日3トピック×2記事）", owner: "auto", priority: "high" },
-      { task: "週次PDCA分析（毎週日曜自動）", owner: "auto", priority: "high" },
+      { task: "明日のGitHub Actions結果を確認", owner: "manual", priority: "critical", estimatedMinutes: 5, impact: "自動投稿が動いているか確認。失敗していたらxvfb対応が必要", detail: "1. https://github.com/RyotaTokuda/note-writer/actions を開く\n2. 最新のワークフロー実行結果を確認\n3. 成功: OK、次のステップへ\n4. 失敗: ログを確認し、headless Chrome関連ならxvfb対応が必要" },
+      { task: "A8.net/もしもでNOTE Writer向け案件を提携申請", owner: "manual", priority: "high", estimatedMinutes: 15, impact: "はてなブログにアフィリリンクを貼れるようになる。月¥1,000〜¥5,000の収益源", detail: "1. A8.netログイン → はてなブログのジャンルに合う案件を検索\n2. 生活/暮らし/節約系の案件を提携申請\n3. もしもでも同様に検索・申請\n4. Amazon/楽天は既に使える（yukikurashi-22）" },
+      { task: "NOTE headless投稿が失敗したらxvfb対応", owner: "auto", priority: "high", detail: "GitHub ActionsのUbuntu環境でPlaywrightを使ったNOTE自動投稿。ディスプレイがないためxvfb（仮想ディスプレイ）が必要な場合がある" },
+      { task: "30記事到達後にNOTEマガジン作成", owner: "manual", priority: "medium", estimatedMinutes: 10, impact: "月額980円のマガジン。購読者10人で月¥9,800。記事が溜まったタイミングで作成", detail: "1. NOTE管理画面 →「マガジンを作る」\n2. テーマに沿ったマガジン名を設定（例:「暮らしのAI活用ラボ」）\n3. 月額980円に設定\n4. 既存の有料記事をマガジンに追加\n5. 無料記事の末尾にマガジン誘導CTAを追加" },
+      { task: "X API再申請 or 手動ツイート週3回", owner: "manual", priority: "medium", estimatedMinutes: 10, impact: "SNSからの流入がないとフォロワー獲得が遅い", detail: "1. X API Developer Portal で再申請（審査1-2週間）\n2. 待てない場合は手動で週3回ツイート\n3. 記事公開告知+テーマに関連するTips投稿" },
+      { task: "記事の自動投稿（毎日3トピック×2記事）", owner: "auto", priority: "high", detail: "GitHub Actions: はてなブログ+NOTE自動投稿\nGemini APIで記事生成→はてなブログAPI→NOTE headless投稿" },
+      { task: "週次PDCA分析（毎週日曜自動）", owner: "auto", priority: "high", detail: "GitHub Actions: 週次分析\nはてなアクセス解析/NOTE統計を取得→改善候補抽出→レポート生成" },
     ],
     revenueRoadmap: [
       { month: "2026-04", target: 0, actual: 0, breakdown: [{ source: "記事蓄積期", target: 0, actual: 0 }] },
@@ -226,14 +272,14 @@ export const PROJECTS: ProjectData[] = [
       { name: "noteトップ1000", users: "1,000人", pricing: "平均月126万円" },
     ],
     currentMonthly: 0,
-    monthlyTarget: 50000,
+    monthlyTarget: 70000,
     revenue: {
       bad: 3000,
-      normal: 15000,
-      good: 50000,
+      normal: 30000,
+      good: 70000,
       badNote: "記事は溜まるがフォロワーが伸びず、有料記事が月10本しか売れない",
-      normalNote: "フォロワー300人、有料記事月50本(CVR1%)、マガジン月5本。はてなアフィリ月2000円",
-      goodNote: "フォロワー800人、有料記事月137本、マガジン月12本。はてなアフィリ月5000円",
+      normalNote: "フォロワー500人、有料記事月80本(CVR1.5%)、マガジン月10本。はてなアフィリ月5000円",
+      goodNote: "フォロワー1000人、有料記事月200本、マガジン月20本。はてなアフィリ月10000円。コラボ・メルマガ連携",
     },
     revenueModel: "有料記事 + マガジン + アフィリエイト",
   },

@@ -8,6 +8,8 @@ import {
   getAllBlockers,
   getAllMilestones,
   getAllHealth,
+  ANNUAL_FORECAST,
+  GROWTH_LEVERS,
   type ProjectData,
   type KPI,
 } from "./data";
@@ -107,6 +109,8 @@ export default function Dashboard() {
   const [selectedCompetitorProject, setSelectedCompetitorProject] = useState(0);
   const [expandedCompetitors, setExpandedCompetitors] = useState<Set<string>>(new Set());
   const [showDoneMilestones, setShowDoneMilestones] = useState(false);
+  const [expandedTodos, setExpandedTodos] = useState<Set<string>>(new Set());
+  const [expandedLevers, setExpandedLevers] = useState<Set<string>>(new Set());
 
   if (isProduction) return <div className="min-h-screen flex items-center justify-center bg-gray-950"><p className="text-gray-400">Not found</p></div>;
 
@@ -145,6 +149,14 @@ export default function Dashboard() {
       if (next.has(idx)) next.delete(idx); else next.add(idx);
       return next;
     });
+  }
+
+  function toggleTodo(key: string) {
+    setExpandedTodos((prev) => { const n = new Set(prev); if (n.has(key)) n.delete(key); else n.add(key); return n; });
+  }
+
+  function toggleLever(key: string) {
+    setExpandedLevers((prev) => { const n = new Set(prev); if (n.has(key)) n.delete(key); else n.add(key); return n; });
   }
 
   function toggleCompetitor(name: string) {
@@ -339,6 +351,39 @@ export default function Dashboard() {
                 </div>
               </div>
             )}
+
+            {/* やること一覧 */}
+            <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">やること（全プロジェクト・優先順）</h3>
+              <div className="space-y-1.5">
+                {PROJECTS.flatMap((p) => p.todos.filter((t) => t.owner === "manual").map((t) => ({ ...t, project: p.name, emoji: p.emoji, key: `${p.id}-${t.task}` }))).sort((a, b) => {
+                  const order = { critical: 0, high: 1, medium: 2, low: 3 };
+                  return order[a.priority] - order[b.priority];
+                }).map((t) => {
+                  const priorityColors: Record<string, string> = { critical: "bg-red-500", high: "bg-orange-500", medium: "bg-yellow-500", low: "bg-gray-500" };
+                  const priorityLabels: Record<string, string> = { critical: "今すぐ", high: "高", medium: "中", low: "低" };
+                  const expanded = expandedTodos.has(t.key);
+                  return (
+                    <div key={t.key} className="bg-gray-800/30 rounded-lg px-3 py-2 cursor-pointer hover:bg-gray-800/60 transition-colors" onClick={() => toggleTodo(t.key)}>
+                      <div className="flex items-center gap-2">
+                        <span className={`shrink-0 text-[10px] text-white font-bold px-1.5 py-0.5 rounded ${priorityColors[t.priority]}`}>{priorityLabels[t.priority]}</span>
+                        <span className="text-xs flex-1">{t.task}</span>
+                        <span className="text-[10px] text-gray-600">{t.emoji} {t.project}</span>
+                        {t.estimatedMinutes && <span className="text-[10px] bg-gray-700 text-gray-400 px-1.5 py-0.5 rounded">{t.estimatedMinutes}分</span>}
+                        <span className="text-xs text-gray-600">{expanded ? "▼" : "▶"}</span>
+                      </div>
+                      {expanded && (
+                        <div className="mt-2 ml-8 space-y-1.5">
+                          {t.impact && <div className="text-xs text-emerald-400/80">効果: {t.impact}</div>}
+                          {t.detail && <div className="text-xs text-gray-400 whitespace-pre-line bg-gray-900/50 rounded px-2 py-1.5">{t.detail}</div>}
+                          {t.blocked && <div className="text-xs text-red-400">ブロッカー: {t.blocked}</div>}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         )}
 
@@ -639,6 +684,68 @@ export default function Dashboard() {
               </div>
             </div>
 
+            {/* 年間売上予測グラフ（全プロジェクト合算） */}
+            <div>
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">1年間の売上予測（全プロジェクト合算）</h2>
+              <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+                {/* 目標ライン表示 */}
+                <div className="flex items-center gap-4 mb-3 text-xs text-gray-500">
+                  <div className="flex items-center gap-1"><div className="w-3 h-2 bg-gray-700 rounded" />ベースライン</div>
+                  <div className="flex items-center gap-1"><div className="w-3 h-2 bg-blue-500 rounded" />上振れ</div>
+                  <div className="flex items-center gap-1"><div className="w-3 h-2 bg-emerald-500 rounded" />実績</div>
+                  <div className="flex-1" />
+                  <div className="text-amber-400">━ 月12万目標（NOTE7万+くらべるラボ5万）</div>
+                </div>
+                {/* 棒グラフ */}
+                {(() => {
+                  const maxVal = Math.max(...ANNUAL_FORECAST.map((f) => Math.max(f.baseline, f.upside, f.actual)), 1);
+                  const targetLine = 120000;
+                  const targetPct = (targetLine / maxVal) * 200;
+                  return (
+                    <div className="relative" style={{ height: "240px" }}>
+                      {/* 目標ライン */}
+                      <div className="absolute left-0 right-0 border-t-2 border-dashed border-amber-500/50" style={{ bottom: `${targetPct + 20}px` }}>
+                        <span className="absolute right-0 -top-4 text-[10px] text-amber-400">¥120,000</span>
+                      </div>
+                      <div className="flex items-end gap-1.5 h-full pt-6">
+                        {ANNUAL_FORECAST.map((f) => (
+                          <div key={f.month} className="flex-1 flex flex-col items-center gap-0.5">
+                            <span className="text-[9px] text-blue-400">¥{(f.upside / 1000).toFixed(0)}k</span>
+                            <span className="text-[9px] text-gray-500">¥{(f.baseline / 1000).toFixed(0)}k</span>
+                            <div className="w-full flex gap-px justify-center" style={{ height: `${(f.upside / maxVal) * 180}px` }}>
+                              {/* ベースライン棒 */}
+                              <div className="w-1/3 flex flex-col justify-end">
+                                <div className="bg-gray-600 rounded-t" style={{ height: `${f.baseline > 0 ? (f.baseline / f.upside) * 100 : 0}%` }} />
+                              </div>
+                              {/* 上振れ棒 */}
+                              <div className="w-1/3 flex flex-col justify-end">
+                                <div className="bg-blue-500/60 rounded-t" style={{ height: "100%" }} />
+                              </div>
+                              {/* 実績棒 */}
+                              <div className="w-1/3 flex flex-col justify-end">
+                                <div className="bg-emerald-500 rounded-t" style={{ height: `${f.actual > 0 && f.upside > 0 ? (f.actual / f.upside) * 100 : 0}%` }} />
+                              </div>
+                            </div>
+                            <span className="text-[9px] text-gray-500">{f.month.slice(5)}月</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })()}
+                {/* 月ごとのカタリスト */}
+                <div className="mt-4 border-t border-gray-800 pt-3 space-y-1">
+                  <div className="text-xs text-gray-500 mb-2">各月の上振れ要因</div>
+                  {ANNUAL_FORECAST.filter((f) => f.catalyst).map((f) => (
+                    <div key={f.month} className="flex gap-2 text-[11px]">
+                      <span className="text-gray-500 w-12 shrink-0">{f.month.slice(5)}月</span>
+                      <span className="text-gray-400">{f.catalyst}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             {/* 中段: 月別収益ロードマップ（縦棒グラフ） */}
             <div>
               <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">月別収益ロードマップ</h2>
@@ -706,9 +813,46 @@ export default function Dashboard() {
               })()}
             </div>
 
-            {/* 下段: 上振れ戦略 */}
+            {/* 下段: 突き抜け施策（クリックで展開） */}
             <div>
-              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">上振れ戦略</h2>
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">ベースラインを超えて突き抜けるための施策</h2>
+              <p className="text-xs text-gray-500 mb-4">ボトムラインは自動パイプラインで守る。ここからは上に伸ばすための取り組み。</p>
+              <div className="space-y-2">
+                {GROWTH_LEVERS.map((gl) => {
+                  const expanded = expandedLevers.has(gl.lever);
+                  return (
+                    <div key={gl.lever} className="bg-gray-900 border border-gray-800 rounded-xl p-4 cursor-pointer hover:border-gray-600 transition-colors" onClick={() => toggleLever(gl.lever)}>
+                      <div className="flex items-center gap-3">
+                        <div className="shrink-0 w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                          <span className="text-blue-400 text-sm">↑</span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-gray-200">{gl.lever}</div>
+                          <div className="flex items-center gap-3 mt-0.5">
+                            <span className="text-[10px] text-gray-500">{gl.timing}</span>
+                            <span className="text-xs text-emerald-400 font-bold">{gl.upsideImpact}</span>
+                          </div>
+                        </div>
+                        <span className="text-xs text-gray-600 shrink-0">{expanded ? "▼" : "▶"}</span>
+                      </div>
+                      {expanded && (
+                        <div className="mt-3 ml-11 space-y-2">
+                          <div className="text-xs text-gray-400 bg-gray-800/50 rounded-lg px-3 py-2 whitespace-pre-line">{gl.detail}</div>
+                          <div className="flex gap-4">
+                            <div className="text-[10px]"><span className="text-gray-500">ベースライン効果:</span> <span className="text-gray-400">{gl.baselineImpact}</span></div>
+                            <div className="text-[10px]"><span className="text-gray-500">上振れ効果:</span> <span className="text-emerald-400">{gl.upsideImpact}</span></div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* プロジェクト別の上振れ戦略 */}
+            <div>
+              <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">プロジェクト別上振れ</h2>
               <div className="space-y-4">
                 {upsideStrategies.map((us) => (
                   <div key={us.project} className="bg-gray-900 border border-gray-800 rounded-xl p-5">
