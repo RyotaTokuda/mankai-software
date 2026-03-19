@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "プライバシーポリシー | Mankai Software",
 };
 
-const UPDATED_AT = "2026年3月17日";
+const UPDATED_AT = "2026年3月18日";
 
 export default function PrivacyPage() {
   return (
@@ -55,13 +55,46 @@ export default function PrivacyPage() {
                 解析目的以外に当方がこのデータを保存・蓄積することはありません。
               </p>
 
-              <h3 className="font-semibold text-gray-800 mt-5 mb-2">2-3. 収集しない情報</h3>
+              <h3 className="font-semibold text-gray-800 mt-5 mb-2">2-3. アカウント・課金に関する情報</h3>
+              <p>
+                本サービスの一部では、Google アカウントを使ったログイン機能を提供しています。
+                ログイン時に以下の情報を取得します。
+              </p>
+              <ul className="list-disc pl-5 mt-2 space-y-1">
+                <li>Googleアカウントの表示名</li>
+                <li>メールアドレス</li>
+                <li>ユーザー識別子（UUID）</li>
+              </ul>
+              <p className="mt-3">
+                これらの情報は、サービス内のデータ同期および課金状態の管理にのみ使用します。
+                課金処理は Apple（App Store）または Google（Google Play）の決済システムを通じて行われ、
+                クレジットカード情報等の決済情報を当方が直接取得・保存することはありません。
+              </p>
+              <p className="mt-3">
+                課金状態の管理には RevenueCat, Inc.（米国）のサービスを利用する場合があります。
+                RevenueCat に送信される情報は、ユーザー識別子および購入レシート情報のみです。
+                詳細は RevenueCat のプライバシーポリシーをご参照ください。
+              </p>
+              <p className="mt-2">
+                <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  https://www.revenuecat.com/privacy
+                </a>
+              </p>
+
+              <h3 className="font-semibold text-gray-800 mt-5 mb-2">2-4. 利用状況の分析</h3>
+              <p>
+                本サービスの品質向上のため、PostHog（米国）のアナリティクスサービスを利用して、
+                アプリの利用状況（画面遷移・機能の利用頻度・エラー発生状況等）を匿名で収集する場合があります。
+                個人を特定できる情報は収集しません。
+              </p>
+
+              <h3 className="font-semibold text-gray-800 mt-5 mb-2">2-5. 収集しない情報</h3>
               <p>当方は以下の情報を収集しません。</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
-                <li>氏名・住所・電話番号等の個人を特定できる情報</li>
+                <li>住所・電話番号等の連絡先情報（メールアドレスを除く）</li>
                 <li>位置情報（GPS）</li>
                 <li>端末の識別情報</li>
-                <li>クレジットカード情報</li>
+                <li>クレジットカード番号等の決済情報（決済は App Store / Google Play が処理します）</li>
               </ul>
             </section>
 
@@ -89,10 +122,10 @@ export default function PrivacyPage() {
                 </a>
               </p>
 
-              <h3 className="font-semibold text-gray-800 mt-5 mb-2">4-1. Gemini API（無料枠）のデータ利用に関する重要事項</h3>
+              <h3 className="font-semibold text-gray-800 mt-5 mb-2">4-1. Gemini API のデータ利用に関する重要事項</h3>
               <p>
-                駐車料金リーダーは現在、Gemini APIの無料枠を使用しています。Googleの利用規約により、<strong>無料枠で送信されたデータはGoogleのサービス品質向上・AI開発改善に利用される場合があります。</strong>
-                個人情報・機密情報・プライバシーに関わる内容が映り込んだ画像の送信はお控えください。
+                駐車料金リーダーは Gemini API の有料プランを使用しています。有料プランでは、送信されたデータがGoogleのAI開発改善に利用されることはありません。
+                ただし、個人情報・機密情報・プライバシーに関わる内容が映り込んだ画像の送信はお控えください。
               </p>
             </section>
 
