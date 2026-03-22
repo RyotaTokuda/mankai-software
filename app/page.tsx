@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const isProduction = process.env.NEXT_PUBLIC_STAGE === "production";
+const STAGE = process.env.NEXT_PUBLIC_STAGE;
 
 type ServiceStatus = "released" | "wip" | "review" | "soon";
 
@@ -51,6 +51,19 @@ const SERVICES: Service[] = [
     tech: "SwiftUI / watchOS 10+ / StoreKit 2 / App Group",
   },
   {
+    emoji: "📝",
+    name: "痛み手帳",
+    description:
+      "だるさ・めまい・頭痛…不調の瞬間をApple WatchやiPhoneからワンタップで記録。傾向を振り返り、通院時にも活用できます。",
+    detail:
+      "Apple Watch または iPhone から不調の瞬間をすぐに記録するセルフログアプリ。症状の種類・強さ・メモを素早く入力でき、カレンダーやトレンドで自分の体調パターンを振り返れます。天気・気圧・HealthKitデータとの相関も確認可能。通院時に見せられるPDF/CSVレポート出力機能付き。無料プランと月額プレミアム（¥390）の2段階。",
+    status: "wip",
+    statusLabel: "MVP完了・リリース準備中",
+    cardClass: "bg-orange-50 border-orange-100",
+    badgeClass: "bg-orange-500 text-white",
+    tech: "Swift / SwiftUI / watchOS 10+ / HealthKit / StoreKit 2",
+  },
+  {
     emoji: "✅",
     name: "DoneLog",
     description:
@@ -70,17 +83,10 @@ const SERVICES: Service[] = [
       "HEIC・WebP・動画など、あらゆるファイル変換をブラウザ内だけで完結。ファイルはサーバーに送られません。",
     detail:
       "iPhoneで撮った写真（HEIC）やWebP画像をJPG/PNGに変換。動画のフォーマット変換にも対応予定。すべてブラウザ内で処理するため、ファイルがサーバーにアップロードされることは一切ありません。個人情報や機密ファイルも安心。",
-    status: (isProduction ? "wip" : "released") as ServiceStatus,
-    statusLabel: isProduction ? "鋭意開発中" : "公開中",
-    ...(isProduction
-      ? {}
-      : { href: "https://file-converter-beige.vercel.app" }),
-    cardClass: isProduction
-      ? "bg-orange-50 border-orange-100"
-      : "bg-emerald-50 border-emerald-100",
-    badgeClass: isProduction
-      ? "bg-orange-500 text-white"
-      : "bg-emerald-600 text-white",
+    status: "wip",
+    statusLabel: "鋭意開発中",
+    cardClass: "bg-orange-50 border-orange-100",
+    badgeClass: "bg-orange-500 text-white",
     tech: "Next.js / heic2any / Canvas API",
   },
   {
@@ -138,6 +144,26 @@ const SERVICES: Service[] = [
 
 export default function Home() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [services, setServices] = useState(SERVICES);
+
+  useEffect(() => {
+    if (STAGE !== "production") {
+      setServices((prev) =>
+        prev.map((s) =>
+          s.name === "ローカルファイル変換"
+            ? {
+                ...s,
+                status: "released" as ServiceStatus,
+                statusLabel: "公開中",
+                href: "https://file-converter-beige.vercel.app",
+                cardClass: "bg-emerald-50 border-emerald-100",
+                badgeClass: "bg-emerald-600 text-white",
+              }
+            : s
+        )
+      );
+    }
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -186,7 +212,7 @@ export default function Home() {
               Apps
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
-              {SERVICES.map((s) => {
+              {services.map((s) => {
                 const baseClass = `rounded-2xl border p-6 ${s.cardClass} ${
                   s.status === "soon" ? "opacity-50" : ""
                 } cursor-pointer hover:shadow-md transition-shadow`;
