@@ -486,22 +486,36 @@ export const PROJECTS: ProjectData[] = [
     id: "car-cost-sim",
     name: "車の維持費シミュレーター",
     emoji: "🧮",
-    status: "planned",
-    statusLabel: "計画中",
-    phase: "Phase 0: 企画",
-    kpis: [],
+    status: "live",
+    statusLabel: "公開中",
+    phase: "Phase 2: 改善・収益化",
+    kpis: [
+      { label: "月間PV", target: 5000, actual: 0, unit: "PV", period: "月間" },
+      { label: "保険見積りCV", target: 3, actual: 0, unit: "件", period: "月間" },
+    ],
     milestones: [
-      { label: "企画・設計", deadline: "2026-05-01", status: "upcoming" },
-      { label: "web-media-engineとの連携設計", deadline: "2026-05-15", status: "upcoming" },
+      { label: "MVP実装・公開", deadline: "2026-03-19", status: "done", note: "kuraberu-lab.com/tools/car-cost/" },
+      { label: "OGP画像追加", deadline: "2026-03-21", status: "done" },
+      { label: "UI改善・テスト追加", deadline: "2026-03-22", status: "done" },
+      { label: "自動車保険ASP提携", deadline: "2026-04-15", status: "upcoming" },
+      { label: "web-media-engineとの記事連携", deadline: "2026-04-30", status: "upcoming" },
     ],
-    health: [],
-    blockers: [],
+    health: [
+      { name: "Vercel デプロイ", status: "healthy", note: "kuraberu-lab.com/tools/car-cost/" },
+      { name: "GitHub Actions CI", status: "healthy", note: "lint/typecheck/バンドル/ライセンス全通過" },
+    ],
+    blockers: [
+      { issue: "自動車保険ASP未提携", impact: "保険見積りアフィリが貼れない", impactAmount: "月¥10,000〜¥30,000の機会損失", action: "A8/もしもで自動車保険案件を提携申請", owner: "manual", estimatedMinutes: 15 },
+    ],
     todos: [
-      { task: "web-media-engineとの連携設計", owner: "auto", priority: "medium" },
-      { task: "実装（Next.js、クライアントサイド）", owner: "auto", priority: "medium" },
-      { task: "自動車保険ASP案件契約", owner: "manual", priority: "high" },
+      { task: "自動車保険ASP案件を提携申請", owner: "manual", priority: "high", estimatedMinutes: 15, impact: "保険見積り1件¥3,000〜¥5,000。月3件で¥9,000〜¥15,000" },
+      { task: "web-media-engineの車関連記事からシミュレーターへ誘導", owner: "auto", priority: "medium" },
     ],
-    revenueRoadmap: [],
+    revenueRoadmap: [
+      { month: "2026-04", target: 0, actual: 0, breakdown: [{ source: "SEO蓄積期", target: 0, actual: 0 }] },
+      { month: "2026-05", target: 5000, actual: 0, breakdown: [{ source: "保険見積り", target: 5000, actual: 0 }] },
+      { month: "2026-06", target: 10000, actual: 0, breakdown: [{ source: "保険見積り", target: 8000, actual: 0 }, { source: "ローン", target: 2000, actual: 0 }] },
+    ],
     competitors: [
       { name: "自動車ランニングコスト", users: "62,000車種DB", pricing: "無料（広告）" },
       { name: "高精度計算サイト(CASIO)", users: "大手", pricing: "無料" },
@@ -516,6 +530,56 @@ export const PROJECTS: ProjectData[] = [
       goodNote: "自動車保険+ローンアフィリで月3万円。web-media-engineと連携で相乗効果",
     },
     revenueModel: "アフィリエイト（保険/ローン）",
+  },
+
+  // ─── 痛み手帳 ───
+  {
+    id: "itami-techo",
+    name: "痛み手帳",
+    emoji: "💊",
+    status: "dev",
+    statusLabel: "実装完了・テスト前",
+    phase: "Phase 3: テスト・申請",
+    kpis: [
+      { label: "開発進捗", target: 100, actual: 85, unit: "%", period: "累計" },
+    ],
+    milestones: [
+      { label: "全Phase実装（iOS+watchOS）", deadline: "2026-03-22", status: "done" },
+      { label: "コード品質改善・テスト追加", deadline: "2026-03-22", status: "done" },
+      { label: "Xcodeビルド・実機テスト", deadline: "2026-03-28", status: "upcoming" },
+      { label: "App Store申請", deadline: "2026-04-05", status: "upcoming" },
+    ],
+    health: [
+      { name: "GitHub Actions CI", status: "healthy", note: "PR #52 CIオールグリーン" },
+    ],
+    blockers: [
+      { issue: "Xcodeビルド未実施", impact: "実機テスト不可", action: "Xcodeでビルド→iPhone+Apple Watchで動作確認", owner: "manual", estimatedMinutes: 30 },
+      { issue: "feat/itami-techo PRがマージ前", impact: "mainに未統合", action: "PR #52 をレビュー・マージ", owner: "manual", estimatedMinutes: 5 },
+    ],
+    todos: [
+      { task: "feat/itami-techo PR をレビュー・マージ", owner: "manual", priority: "critical", estimatedMinutes: 5, impact: "mainに統合されないと次のステップに進めない" },
+      { task: "Xcodeでビルド・実機テスト（iPhone + Apple Watch）", owner: "manual", priority: "critical", estimatedMinutes: 30, impact: "HealthKit/WatchConnectivity/StoreKit 2の動作を実機で確認" },
+      { task: "App Store申請", owner: "manual", priority: "high", blocked: "実機テスト", estimatedMinutes: 30 },
+    ],
+    revenueRoadmap: [
+      { month: "2026-04", target: 0, actual: 0, breakdown: [{ source: "公開準備期", target: 0, actual: 0 }] },
+      { month: "2026-05", target: 2000, actual: 0, breakdown: [{ source: "サブスク(月額¥390)", target: 2000, actual: 0 }] },
+      { month: "2026-06", target: 4000, actual: 0, breakdown: [{ source: "サブスク", target: 4000, actual: 0 }] },
+    ],
+    competitors: [
+      { name: "頭痛ーる", users: "累計1500万DL", pricing: "無料+プレミアム" },
+      { name: "つらいメモ", users: "評価4.5★", pricing: "無料" },
+      { name: "My Symptoms", users: "グローバル", pricing: "$4.99/月" },
+    ],
+    currentMonthly: 0,
+    monthlyTarget: 10000,
+    revenue: {
+      bad: 0, normal: 5000, good: 20000,
+      badNote: "頭痛ーる(1500万DL)が市場を支配。体調記録の汎用性で差別化できず",
+      normalNote: "Apple Watch即時記録+HealthKit連携で差別化。月300DL、課金率5%",
+      goodNote: "通院サポート（PDF出力）が刺さり月800DL。慢性疾患コミュニティで拡散",
+    },
+    revenueModel: "Free / Pro（月額¥390 / 年額¥3,900）",
   },
 
   // ─── おうちストック ───
