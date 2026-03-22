@@ -122,10 +122,11 @@ export const SERVICES: Service[] = [
       "整備記録・給油・維持費をまとめて管理。売却時に使える整備履歴PDFの出力まで、愛車ライフを一冊に。",
     detail:
       "オイル交換・タイヤ交換・車検などの整備記録をアプリで一元管理。次回メンテナンスの通知、給油記録から燃費計算、月別の維持費グラフ表示。売却時に整備履歴をPDFで出力して査定アップを狙えます。複数台の管理にも対応。",
-    status: "soon",
-    statusLabel: "開発計画中",
-    cardClass: "bg-gray-50 border-gray-100",
-    badgeClass: "bg-gray-300 text-gray-600",
+    status: "wip",
+    statusLabel: "MVP完了・リリース準備中",
+    cardClass: "bg-orange-50 border-orange-100",
+    badgeClass: "bg-orange-500 text-white",
+    tech: "Next.js / Supabase / Gemini API / Lemon Squeezy",
   },
   {
     emoji: "🧮",
