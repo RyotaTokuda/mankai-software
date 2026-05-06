@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "プライバシーポリシー | Mankai Software",
 };
 
-const UPDATED_AT = "2026年3月18日";
+const UPDATED_AT = "2026年5月6日";
 
 export default function PrivacyPage() {
   return (
@@ -45,6 +45,10 @@ export default function PrivacyPage() {
                 <li>解析に使用した画像のファイルパス</li>
                 <li>解析・利用履歴</li>
                 <li>アプリ内の設定情報</li>
+                <li>【痛み手帳】不調の記録（症状種類・強さ・服薬情報・メモ・記録日時等）</li>
+                <li>【痛み手帳】記録時の環境データ（気圧・天気・気温・湿度・空気質等）</li>
+                <li>【痛み手帳】Apple Healthデータの要約（睡眠時間・安静時心拍・歩数等）</li>
+                <li>【痛み手帳】位置情報（市区町村レベルに丸めた近似値のみ。記録時の天気・気圧取得のために使用）</li>
               </ul>
               <p className="mt-3">これらのデータは端末内のストレージにのみ保存され、当方のサーバーへは送信されません。</p>
 
@@ -92,10 +96,24 @@ export default function PrivacyPage() {
               <p>当方は以下の情報を収集しません。</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li>住所・電話番号等の連絡先情報（メールアドレスを除く）</li>
-                <li>位置情報（GPS）</li>
+                <li>正確な位置情報（痛み手帳は市区町村レベルの近似値のみ端末内に保存します）</li>
                 <li>端末の識別情報</li>
                 <li>クレジットカード番号等の決済情報（決済は App Store / Google Play が処理します）</li>
+                <li>健康記録・Apple Healthデータそのもの（端末外への送信は行いません）</li>
               </ul>
+            </section>
+
+            <section>
+              <h2 className="text-base font-bold text-gray-900 mb-3">2-6. 痛み手帳における健康データの取り扱い</h2>
+              <p>
+                「痛み手帳」アプリは、Apple HealthKit を通じて睡眠時間・安静時心拍・歩数等の健康データを読み取り、不調との傾向を表示する目的のみに使用します。
+                これらのデータは端末内にのみ保存され、当方のサーバーや第三者へ送信されることはありません。
+                HealthKit データを広告・マーケティング・市場調査等の目的で使用することはありません。
+              </p>
+              <p className="mt-3">
+                <strong>本アプリは医療機器ではありません。</strong>
+                痛み手帳の記録・分析結果は参考情報であり、診断・治療・予防を目的とするものではありません。
+              </p>
             </section>
 
             <section>

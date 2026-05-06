@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "利用規約 | Mankai Software",
 };
 
-const UPDATED_AT = "2026年3月17日";
+const UPDATED_AT = "2026年5月6日";
 
 export default function TermsPage() {
   return (
@@ -50,6 +50,19 @@ export default function TermsPage() {
               </p>
               <p className="mt-3">
                 実際の駐車料金・各種情報は必ず現地の表示または公式情報源でご確認ください。AI解析結果に基づいた判断により生じた損害（過払い料金・駐車違反・その他の損失を含む）について、当方は責任を負いません。
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-bold text-gray-900 mb-3">第3条の2（健康・医療に関する重要事項）</h2>
+              <p>
+                「痛み手帳」等の健康記録アプリは、<strong>医療機器ではありません。</strong>
+                本サービスの健康に関する機能（記録・傾向表示・レポート出力等）は、診断・治療・予防を目的とするものではなく、参考情報の提供にとどまります。
+              </p>
+              <p className="mt-3">
+                本サービスの利用により得られた情報は、医療上の判断の代替となるものではありません。
+                体調に不安がある場合は、必ず医療機関に相談してください。
+                本サービスの記録・分析結果に基づいた医療的判断により生じた損害について、当方は責任を負いません。
               </p>
             </section>
 
