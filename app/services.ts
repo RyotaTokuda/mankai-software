@@ -90,17 +90,17 @@ export const SERVICES: Service[] = [
     tech: "Next.js / heic2any / Canvas API",
   },
   {
-    emoji: "🏠",
-    name: "おうちストック",
+    emoji: "🛒",
+    name: "買いどき",
     description:
-      "日用品の在庫を記録して「そろそろ買い時」を通知。シャンプー・洗剤・電池…買い忘れを防止します。",
+      "消耗品の使い切りタイミングを自動で知らせる管理アプリ。シャンプー・洗剤・電池…買い忘れ・無駄買いをゼロに。",
     detail:
-      "消耗品の使用開始日と交換サイクルを登録するだけ。アプリが自動で「そろそろなくなりそう」を通知してくれます。買い物メモの自動生成、家族との共有機能も。無料プラン（1モード・アイテム数制限あり）、有料プランで全機能解放。",
+      "使用開始日と交換サイクルを登録するだけで、「そろそろ補充どき」を通知。日用品・カー用品・ガジェットの3モード対応。Apple Watch から買い物リストを確認。家族人数に応じてサイクルを自動調整。CloudKit で家族間データ共有。無料プラン（1モード・アイテム数制限あり）、Plusプランで全機能解放（月額 ¥200 / 年額 ¥1,500）。",
     status: "wip",
-    statusLabel: "開発中",
+    statusLabel: "TestFlight 審査準備中",
     cardClass: "bg-orange-50 border-orange-100",
     badgeClass: "bg-orange-500 text-white",
-    tech: "React Native (Expo) / SQLite",
+    tech: "Swift / SwiftUI / watchOS 10+ / CloudKit / StoreKit 2",
   },
   {
     emoji: "🧾",

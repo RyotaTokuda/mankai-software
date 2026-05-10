@@ -69,6 +69,7 @@ export default function TokushohoPage() {
                 />
                 <Row label="サービス名" value={
                   <ul className="space-y-1">
+                    <li>買いどき（iOS / watchOS アプリ）</li>
                     <li>痛み手帳（iOS / watchOS アプリ）</li>
                     <li>しめどき（iOS / watchOS アプリ）</li>
                     <li>駐車料金リーダー（iOS アプリ）</li>
@@ -77,6 +78,7 @@ export default function TokushohoPage() {
                 } />
                 <Row label="販売価格" value={
                   <ul className="space-y-1">
+                    <li>【買いどき Plus】月額 ¥200 / 年額 ¥1,500</li>
                     <li>【痛み手帳 Premium】月額 ¥400 / 年額 ¥4,000</li>
                     <li>【しめどき Premium】App Store の商品ページに表示される価格</li>
                     <li>その他の有料機能は各サービスのアプリ内または購入画面に表示される価格</li>

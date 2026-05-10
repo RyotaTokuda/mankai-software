@@ -45,6 +45,9 @@ export default function PrivacyPage() {
                 <li>解析に使用した画像のファイルパス</li>
                 <li>解析・利用履歴</li>
                 <li>アプリ内の設定情報</li>
+                <li>【買いどき】消耗品の情報（名前・カテゴリ・使用開始日・交換サイクル・購入日等）</li>
+                <li>【買いどき】買い物リストのエントリ</li>
+                <li>【買いどき】家族構成（大人・子ども人数）および車・ガジェットモードの設定</li>
                 <li>【しめどき】会議・セッションのテンプレート情報（タイトル・時間・設定等）</li>
                 <li>【しめどき】セッションの記録（開始時刻・終了時刻・完了状況等）</li>
                 <li>【痛み手帳】不調の記録（症状種類・強さ・服薬情報・メモ・記録日時等）</li>
@@ -106,7 +109,17 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="text-base font-bold text-gray-900 mb-3">2-6. 痛み手帳における健康データの取り扱い</h2>
+              <h2 className="text-base font-bold text-gray-900 mb-3">2-6. 買いどき における CloudKit データ同期</h2>
+              <p>
+                「買いどき」アプリは、Apple の CloudKit（iCloud）を使用して、消耗品データおよび買い物リストを端末間・家族間で同期します。
+                CloudKit に保存されるデータは、消耗品情報・買い物リスト・設定情報のみです。
+                これらのデータは Apple の iCloud インフラ上に保存され、当方のサーバーへは送信されません。
+                CloudKit の利用には Apple ID が必要です。データの取り扱いについては Apple のプライバシーポリシーが適用されます。
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-base font-bold text-gray-900 mb-3">2-7. 痛み手帳における健康データの取り扱い</h2>
               <p>
                 「痛み手帳」アプリは、Apple HealthKit を通じて睡眠時間・安静時心拍・歩数等の健康データを読み取り、不調との傾向を表示する目的のみに使用します。
                 これらのデータは端末内にのみ保存され、当方のサーバーや第三者へ送信されることはありません。

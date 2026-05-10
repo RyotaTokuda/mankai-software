@@ -121,6 +121,12 @@ export default function Home() {
             >
               利用規約
             </Link>
+            <Link
+              href="/tokushoho"
+              className="hover:text-gray-600 transition-colors"
+            >
+              特定商取引法
+            </Link>
           </div>
         </div>
       </footer>
