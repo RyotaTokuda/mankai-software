@@ -117,6 +117,7 @@ export default function SupportPage() {
           <span>© {new Date().getFullYear()} Mankai Software</span>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-gray-600 transition-colors">プライバシーポリシー</Link>
+            <Link href="/support" className="text-gray-600">サポート</Link>
             <Link href="/terms" className="hover:text-gray-600 transition-colors">利用規約</Link>
             <Link href="/tokushoho" className="hover:text-gray-600 transition-colors">特定商取引法</Link>
           </div>

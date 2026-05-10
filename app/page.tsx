@@ -116,6 +116,12 @@ export default function Home() {
               プライバシーポリシー
             </Link>
             <Link
+              href="/support"
+              className="hover:text-gray-600 transition-colors"
+            >
+              サポート
+            </Link>
+            <Link
               href="/terms"
               className="hover:text-gray-600 transition-colors"
             >

@@ -217,6 +217,7 @@ export default function PrivacyPage() {
           <span>© {new Date().getFullYear()} Mankai Software</span>
           <div className="flex gap-6">
             <Link href="/privacy" className="text-gray-600">プライバシーポリシー</Link>
+            <Link href="/support" className="hover:text-gray-600 transition-colors">サポート</Link>
             <Link href="/terms" className="hover:text-gray-600 transition-colors">利用規約</Link>
             <Link href="/tokushoho" className="hover:text-gray-600 transition-colors">特定商取引法</Link>
           </div>
