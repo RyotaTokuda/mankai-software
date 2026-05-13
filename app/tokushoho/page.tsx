@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "特定商取引法に基づく表記 | Mankai Software",
 };
 
-const UPDATED_AT = "2026年5月11日";
+const UPDATED_AT = "2026年5月14日";
 
 const Row = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <tr className="border-b border-gray-100 last:border-0">
@@ -34,8 +34,7 @@ export default function TokushohoPage() {
           <div className="text-sm">
             <table className="w-full">
               <tbody>
-                <Row label="販売業者" value="Mankai Software（個人事業）" />
-                <Row label="代表者" value="徳田涼太" />
+                <Row label="販売業者" value="得田涼太" />
                 <Row
                   label="所在地"
                   value={
@@ -54,6 +53,7 @@ export default function TokushohoPage() {
                     <>
                       記載省略
                       <span className="block text-xs text-gray-400 mt-1">
+                        特定商取引法施行規則第23条第2項の規定に基づき省略しています。
                         請求があった場合には遅滞なく開示いたします。
                       </span>
                     </>
@@ -67,23 +67,12 @@ export default function TokushohoPage() {
                     </a>
                   }
                 />
-                <Row label="サービス名" value={
-                  <ul className="space-y-1">
-                    <li>買いどき（iOS / watchOS アプリ）</li>
-                    <li>痛み手帳（iOS / watchOS アプリ）</li>
-                    <li>しめどき（iOS / watchOS アプリ）</li>
-                    <li>駐車料金リーダー（iOS アプリ）</li>
-                    <li>その他 Mankai Software が提供するアプリ・Webサービス</li>
-                  </ul>
-                } />
+                <Row label="サービス名" value="Mankai Software が提供するiOSアプリおよびWebサービス" />
                 <Row label="販売価格" value={
-                  <ul className="space-y-1">
-                    <li>【買いどき Plus】月額 ¥200 / 年額 ¥1,500</li>
-                    <li>【痛み手帳 Premium】月額 ¥400 / 年額 ¥4,000</li>
-                    <li>【しめどき Premium】App Store の商品ページに表示される価格</li>
-                    <li>その他の有料機能は各サービスのアプリ内または購入画面に表示される価格</li>
-                    <li>消費税を含む</li>
-                  </ul>
+                  <>
+                    各アプリのApp Store商品ページまたはアプリ内購入画面に表示される価格
+                    <span className="block text-xs text-gray-400 mt-1">消費税を含む</span>
+                  </>
                 } />
                 <Row label="支払方法" value={
                   <>
@@ -106,12 +95,7 @@ export default function TokushohoPage() {
                     </span>
                   </>
                 } />
-                <Row label="動作環境" value={
-                  <ul className="space-y-1">
-                    <li>iOS 17.0 以降</li>
-                    <li>watchOS 10.0 以降（Watch アプリを含む場合）</li>
-                  </ul>
-                } />
+                <Row label="動作環境" value="各アプリのApp Store商品ページをご確認ください。" />
               </tbody>
             </table>
           </div>

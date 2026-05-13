@@ -53,37 +53,61 @@ export default function PrivacyPage() {
                 解析目的以外に当方がこのデータを保存・蓄積することはありません。
               </p>
 
-              <h3 className="font-semibold text-gray-800 mt-5 mb-2">2-3. アカウント・課金に関する情報</h3>
+              <h3 className="font-semibold text-gray-800 mt-5 mb-2">2-3. アプリ別 外部サービス利用一覧</h3>
               <p>
-                本サービスの一部では、Google アカウントを使ったログイン機能を提供しています。
-                ログイン時に以下の情報を取得します。
+                外部サービスを利用するのは以下のアプリに限られます。記載のないアプリは、課金処理（後述）を除き、外部サーバーとの通信を行いません。
               </p>
-              <ul className="list-disc pl-5 mt-2 space-y-1">
-                <li>Googleアカウントの表示名</li>
-                <li>メールアドレス</li>
-                <li>ユーザー識別子（UUID）</li>
-              </ul>
-              <p className="mt-3">
-                これらの情報は、サービス内のデータ同期および課金状態の管理にのみ使用します。
-                課金処理は Apple（App Store）または Google（Google Play）の決済システムを通じて行われ、
-                クレジットカード情報等の決済情報を当方が直接取得・保存することはありません。
-              </p>
-              <p className="mt-3">
-                課金状態の管理には RevenueCat, Inc.（米国）のサービスを利用する場合があります。
-                RevenueCat に送信される情報は、ユーザー識別子および購入レシート情報のみです。
-                詳細は RevenueCat のプライバシーポリシーをご参照ください。
-              </p>
-              <p className="mt-2">
-                <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
-                  https://www.revenuecat.com/privacy
-                </a>
+              <div className="overflow-x-auto mt-3">
+                <table className="text-xs border-collapse min-w-full">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      <th className="py-2 pr-4 text-left font-semibold text-gray-700">アプリ</th>
+                      <th className="py-2 pr-4 text-left font-semibold text-gray-700">利用サービス</th>
+                      <th className="py-2 text-left font-semibold text-gray-700">目的</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-gray-700">
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 pr-4 align-top">買いどき</td>
+                      <td className="py-2 pr-4 align-top">Apple CloudKit</td>
+                      <td className="py-2 align-top">端末間・家族間のデータ同期（詳細は §2-6）</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 pr-4 align-top">痛み手帳</td>
+                      <td className="py-2 pr-4 align-top">Apple HealthKit（端末内のみ）</td>
+                      <td className="py-2 align-top">健康データ読み取り（外部送信なし。詳細は §2-7）</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 pr-4 align-top">駐車料金リーダー</td>
+                      <td className="py-2 pr-4 align-top">Google Gemini API、PostHog</td>
+                      <td className="py-2 align-top">看板画像の解析（§4-1）、利用状況の匿名分析（§2-4）</td>
+                    </tr>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 pr-4 align-top">しめどき / ローカルファイル変換 / ファイルコンバーター</td>
+                      <td className="py-2 pr-4 align-top">なし</td>
+                      <td className="py-2 align-top">外部サービスとの通信は行いません</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-3 text-xs text-gray-500">
+                本一覧は最終更新日時点の情報です。新たに外部サービスを利用する場合は本ポリシーを改定し、必要に応じてアプリ内で告知します。
               </p>
 
-              <h3 className="font-semibold text-gray-800 mt-5 mb-2">2-4. 利用状況の分析</h3>
+              <h3 className="font-semibold text-gray-800 mt-5 mb-2">2-4. 利用状況の分析（駐車料金リーダーのみ）</h3>
               <p>
-                本サービスの品質向上のため、PostHog（米国）のアナリティクスサービスを利用して、
-                アプリの利用状況（画面遷移・機能の利用頻度・エラー発生状況等）を匿名で収集する場合があります。
-                個人を特定できる情報は収集しません。
+                駐車料金リーダーは、サービス品質向上のため、PostHog Inc.（米国）が提供するアナリティクスサービスを利用し、アプリの利用状況（画面遷移・機能の利用頻度・エラー発生状況等）を匿名で収集する場合があります。氏名・連絡先など個人を特定できる情報は収集しません。
+              </p>
+              <p className="mt-2 text-xs text-gray-500">
+                その他のアプリ（買いどき・痛み手帳・しめどき・ローカルファイル変換）には PostHog を含む第三者アナリティクスSDKを組み込んでおりません。
+              </p>
+
+              <h3 className="font-semibold text-gray-800 mt-5 mb-2">2-4-1. 課金・決済</h3>
+              <p>
+                有料機能の課金処理は Apple（App Store）の決済システムを通じて行われ、クレジットカード番号等の決済情報を当方が直接取得・保存することはありません。お支払い方法・タイミングは Apple の規約に準じます。
+              </p>
+              <p className="mt-2 text-xs text-gray-500">
+                現時点では RevenueCat 等のサードパーティ課金SDKは利用していません。将来導入する場合は本ポリシーを改定し、対象アプリと送信される情報の範囲を明記します。
               </p>
 
               <h3 className="font-semibold text-gray-800 mt-5 mb-2">2-5. 収集しない情報</h3>
