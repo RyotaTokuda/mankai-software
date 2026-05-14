@@ -23,14 +23,42 @@ const APPS = [
   },
 ];
 
-const FAQS = [
+const FAQS: { q: string; a: React.ReactNode }[] = [
   {
     q: "購入したプレミアムプランが反映されません",
-    a: "アプリの設定画面 → 「購入を復元」をタップしてください。しばらくしても解決しない場合はお問い合わせください。",
+    a: (
+      <>
+        機種変更・再インストール後は、アプリの設定画面 →「購入を復元」をタップしてください。
+        詳しい手順はAppleの公式サポートページをご参照ください。
+        {" "}
+        <a
+          href="https://support.apple.com/ja-jp/HT204530"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline"
+        >
+          App Storeでの購入を復元する（Apple）
+        </a>
+      </>
+    ),
   },
   {
     q: "サブスクリプションを解約したい",
-    a: "iPhoneの「設定」→ Apple ID →「サブスクリプション」から解約できます。解約後も現在の期間が終了するまでご利用いただけます。",
+    a: (
+      <>
+        iPhoneの「設定」→ Apple ID →「サブスクリプション」から解約できます。解約後も現在の期間が終了するまでご利用いただけます。
+        詳しい手順は{" "}
+        <a
+          href="https://support.apple.com/ja-jp/HT202039"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline"
+        >
+          Appleの公式サポートページ
+        </a>
+        {" "}をご参照ください。
+      </>
+    ),
   },
   {
     q: "データを削除したい",
