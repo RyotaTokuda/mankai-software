@@ -141,4 +141,17 @@ export const SERVICES: Service[] = [
     badgeClass: "bg-emerald-600 text-white",
     href: "https://kuraberu-lab.com/tools/car-cost/",
   },
+  {
+    emoji: "🎨",
+    name: "Gunpla Paint Planner",
+    description:
+      "ガンプラのキットを選ぶだけで、必要な塗料を現地で買えるブランドに変換。手持ちを差し引いた買い物リストを作成。",
+    detail:
+      "海外のガンプラ勢向け塗料プランナー。説明書のMr.Color指定は海外で買いにくい——そんな悩みを解決します。キットを選ぶと必要な色（混色レシピ込み）を表示し、Vallejo Mecha / Tamiya / Citadel / AK など自分が買えるブランドへ確信度つきで変換。手持ち在庫を差し引いた買い物リストをコピー・共有できます。完全オフライン・買い切り・広告なし。",
+    status: "wip",
+    statusLabel: "リリース準備中",
+    cardClass: "bg-orange-50 border-orange-100",
+    badgeClass: "bg-orange-500 text-white",
+    tech: "React Native (Expo) / SQLite / RevenueCat",
+  },
 ];
