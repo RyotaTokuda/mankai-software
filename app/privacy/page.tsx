@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "プライバシーポリシー | Mankai Software",
 };
 
-const UPDATED_AT = "2026年5月14日";
+const UPDATED_AT = "2026年6月21日";
 
 const Section = ({ id, title, children }: { id: string; title: string; children: React.ReactNode }) => (
   <section id={id}>
@@ -93,6 +93,9 @@ export default function PrivacyPage() {
                 <p>
                   有料機能の決済はApple（App Store）の決済システムを通じて行われます。クレジットカード番号等の決済情報を当方が直接取得・保存することはありません。
                 </p>
+                <p className="mt-2">
+                  一部のサービスでは、購入状態（どの有料機能を購入したか）の検証・管理にRevenueCat（後述）を利用します。Appleが発行する購入レシートと、当方が氏名等と紐付けない匿名の利用者IDがRevenueCatへ送信され、購入済み機能の有効・無効の判定にのみ使用されます。クレジットカード番号等の決済情報や氏名・連絡先は送信されません。
+                </p>
               </Sub>
 
               <Sub title="2-7. お問い合わせ時の情報">
@@ -153,7 +156,18 @@ export default function PrivacyPage() {
                 </p>
               </Sub>
 
-              <Sub title="4-4. 上記以外の第三者提供">
+              <Sub title="4-4. 課金管理サービス">
+                <p>
+                  App内課金を提供する一部のサービスでは、購入状態の検証・管理にRevenueCat, Inc.（米国）のサービスを使用します。Appleが発行する購入レシートと匿名の利用者IDがRevenueCatへ送信され、サーバー側でレシートを検証して購入済み機能の有効・無効を判定します。氏名・連絡先・クレジットカード情報は送信されません。
+                </p>
+                <p className="mt-2">
+                  <a href="https://www.revenuecat.com/privacy/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                    RevenueCat プライバシーポリシー
+                  </a>
+                </p>
+              </Sub>
+
+              <Sub title="4-5. 上記以外の第三者提供">
                 <p>
                   以下の場合を除き、ユーザーの情報を第三者に提供しません。
                 </p>
@@ -167,7 +181,7 @@ export default function PrivacyPage() {
 
             <Section id="s5" title="5. 外国にある第三者への提供（個人情報保護法第28条）">
               <p>
-                AI解析機能等を通じてデータを外部APIへ送信するサービスでは、Google LLC（米国）等の外国にある第三者へ情報が提供されます。これらの事業者は、EUのGDPRや標準契約条項（SCC）等、国際的な個人情報保護基準に準拠した適切な保護措置を講じています。
+                AI解析機能等を通じてデータを外部APIへ送信するサービスでは Google LLC（米国）へ、App内課金の購入状態を管理するサービスでは RevenueCat, Inc.（米国）へ、それぞれ外国にある第三者として情報が提供されます。これらの事業者は、EUのGDPRや標準契約条項（SCC）等、国際的な個人情報保護基準に準拠した適切な保護措置を講じています。
               </p>
               <p className="mt-3">
                 外部APIへの送信が発生するサービスと送信されるデータの内容については、App Storeの各アプリページをご確認ください。
